@@ -28,7 +28,7 @@
     @include("layouts.headerNavigation")
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('{{ asset('img/home-bg-v2.jpg') }}')">
+      <header class="masthead" style="background-image: url('{{ asset('img/home-bg-v2.jpg') }}')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">

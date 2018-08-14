@@ -15,6 +15,11 @@
               {{$post->description}}
             </h3>
           </a>
+          <p class="post-meta">
+            <span><i class="fa fa-fw fa-eye"></i> {{$post->seen}}</span>  
+            <span><i class="fa fa-fw fa-heart"></i> {{$post->likes}}</span>  
+            <span><i class="fa fa-fw fa-comment"></i> 15</span>
+          </p>
           <p class="post-meta">Теги:
             @php
             {{$tags = explode(", ", $post->tags);}}
@@ -24,7 +29,7 @@
             @endforeach
           </p>
           <p class="post-meta">
-            Написав: <b>{{$post->author}}<i> 
+            Написав: <b><a href="">{{$post->author}}</a><i> 
             {{$post->created_at}}</i></b>
           </p>
         </div>
