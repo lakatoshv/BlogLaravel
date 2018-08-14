@@ -3,13 +3,14 @@
 <!-- Main Content -->
 <div class="container">
   <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
+    <div class="col-lg-10 col-md-10 mx-auto">
       @foreach($posts as $post)
         <div class="post-preview">
-          <a href="post.html">
+          <a href="{{ url('/posts/'.$post->id) }}">
             <h2 class="post-title">
               {{$post->title}}
             </h2>
+            <img style="width: 100%; height: 300px;" src="{{$post->imgurl}}"/>
             <h3 class="post-subtitle">
               {{$post->description}}
             </h3>
@@ -22,9 +23,8 @@
               <a href="#">{{$tag}}</a>,  
             @endforeach
           </p>
-        </div>
           <p class="post-meta">
-            Написав: <b>Vital_L<i> 
+            Написав: <b>{{$post->author}}<i> 
             {{$post->created_at}}</i></b>
           </p>
         </div>

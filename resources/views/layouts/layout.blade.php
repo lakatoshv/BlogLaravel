@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -49,30 +50,56 @@
     <footer>
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item">
+          <div class="col-lg-10 col-md-12 mx-auto">
+            <ul class="socialIcons">
+              <li class="facebook">
                 <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
+                  <i class="fa fa-fw fa-facebook"></i>Facebook
                 </a>
-              </li>
-              <li class="list-inline-item">
+              </li> 
+              <li class="twitter">
                 <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                  </span>
+                  <i class="fa fa-fw fa-twitter"></i>Twitter
                 </a>
-              </li>
-              <li class="list-inline-item">
+              </li> 
+              <li class="instagram">
                 <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
+                  <i class="fa fa-fw fa-instagram"></i>Instagram
+                </a>
+              </li> 
+              <li class="pinterest">
+                <a href="#">
+                  <i class="fa fa-fw fa-pinterest-p"></i>Pinterest
+                </a>
+              </li> 
+              <li class="vk">
+                <a href="#">
+                  <i class="fa fa-fw fa-vk"></i>VKontakte
+                </a>
+              </li> 
+              <li class="tumblr">
+                <a href="#">
+                  <i class="fa fa-fw fa-tumblr"></i>Tumblr
+                </a>
+              </li> 
+               <li class="linkedin">
+                <a href="#">
+                  <i class="fa fa-fw fa-linkedin"></i>Linkedid
+                </a>
+              </li> 
+              <li class="google-plus">
+                <a href="#">
+                  <i class="fa fa-fw fa-google-plus"></i>Google+
+                </a>
+              </li> 
+              <li class="yahoo">
+                <a href="#">
+                  <i class="fa fa-fw fa-yahoo"></i>Yahoo
+                </a>
+              </li>  
+              <li class="skype">
+                <a href="#">
+                  <i class="fa fa-fw fa-skype"></i>Skype
                 </a>
               </li>
             </ul>
