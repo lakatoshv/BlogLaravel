@@ -63,31 +63,28 @@
 
     <!-- Comments -->
     <div class="comments">
-      <div class="comments_title">Comments <span>(12)</span></div>
+      <div class="comments_title">Comments <span>{{count($comments)}}</span></div>
       <div class="row">
         <div class="col-lg-12">
           <div class="comments_container">
             <ul class="comment_list">
+              @foreach($comments as $comment)
               <li class="comment">
                 <div class="comment_body">
                   <div class="comment_panel d-flex flex-row align-items-center justify-content-start">
-                    <div class="comment_author_image">
-                      <div>
-                        <img src="images/comment_author_1.jpg" alt="">
-                      </div>
-                    </div>
+                    <span><I class="fa fa-3x fa-user-circle"></I></span>
                     <small class="post_meta">
-                      <a href="#">Katy Liu</a>
-                      <span>Sep 29, 2017 at 9:48 am</span>
+                      <a href="#">{{$comment->author}}</a>
+                      <span>{{$comment->created_at}}</span>
                     </small>
-                    <button type="button" class="reply_button ml-auto">Reply</button>
+                    <button type="button" class="reply_button ml-auto">Відповісти</button>
                   </div>
                   <div class="comment_content">
-                    <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened.</p>
+                    <p>{{$comment->comment}}</p>
                   </div>
                 </div>
 
-                <!-- Reply -->
+                <!-- Reply - ->
                 <ul class="comment_list">
                   <li class="comment">
                     <div class="comment_body">
@@ -108,31 +105,16 @@
                       </div>
                     </div>
 
-                    <!-- Reply -->
+                    <!- - Reply - ->
                     <ul class="comment_list">  
                     </ul>
+
                   </li>
                 </ul>
+                -->
               </li>
-              <li class="comment">
-                <div class="comment_body">
-                  <div class="comment_panel d-flex flex-row align-items-center justify-content-start">
-                    <div class="comment_author_image">
-                      <div>
-                        <img src="images/comment_author_1.jpg" alt="">
-                      </div>
-                    </div>
-                    <small class="post_meta">
-                      <a href="#">Katy Liu</a>
-                      <span>Sep 29, 2017 at 9:48 am</span>
-                    </small>
-                    <button type="button" class="reply_button ml-auto">Reply</button>
-                  </div>
-                  <div class="comment_content">
-                    <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened.</p>
-                  </div>
-                </div>
-              </li>
+              <hr>
+              @endforeach
             </ul>
           </div>
         </div>
