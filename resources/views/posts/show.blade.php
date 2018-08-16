@@ -10,17 +10,18 @@
   <div class="row">
     <div class="col-lg-12 col-md-10 mx-auto">
       <div class="post-preview">
-        <h2 class="post-title">
+        <h2 class="post-title text-center">
           {{$post->title}}
         </h2>
         <img style="width: 100%; height: 300px;" src="{{$post->imgurl}}"/>
-        <h3 class="post-subtitle">
+        <h3 class="post-subtitle text-center">
           {{$post->description}}
         </h3>
       </a>
       <p class="post-meta">
         <span><i class="fa fa-fw fa-eye"></i> {{$post->seen}}</span>  
-        <span><i class="fa fa-fw fa-heart"></i> {{$post->likes}}</span>  
+        <span><i class="fa fa-fw fa-thumbs-up"></i> {{$post->likes}}</span>
+        <span><i class="fa fa-fw fa-thumbs-down"></i> {{$post->dislikes}}</span>  
       </p>
       <p class="post-meta">Теги:
         @php
@@ -30,11 +31,19 @@
           <a href="#">{{$tag}}</a>,  
         @endforeach
       </p>
-      <p>{{$post->content}}</p>
+      <p class="text-justify">{{$post->content}}</p>
       <p class="post-meta">
         Написав: <b><a href="">{{$post->author}}</a><i> 
-        {{$post->created_at}}</i></b>
+        @php
+        {{
+          $date = date_create($post->created_at);
+          $date = date_format($date, 'd.m.Y');
+        }}
+        @endphp
+        {{$date}}</i></b>
       </p>
+      <button class="btn btn-xs btn-info" st><span class="fa fa-thumbs-up"></span> Подобається</button>
+      <button class="btn btn-sm btn-danger"><span class="fa fa-thumbs-down"></span> Неподобається</button>
     </div>
   </div>
 </div>

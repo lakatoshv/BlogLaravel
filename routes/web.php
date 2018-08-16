@@ -15,6 +15,10 @@ Route::get('/', function () {
     $posts = DB::table("posts")->get();
     return view('index', compact('posts'));
 });
+Route::get('/posts', function () {
+    $posts = DB::table("posts")->get();
+    return view('index', compact('posts'));
+});
 Route::get('posts/{id}', function ($id) {
     $post = DB::table("posts")->find($id);
     $comments = DB::table("comments")->where("post_id", $id)->get();

@@ -17,8 +17,12 @@
           </a>
           <p class="post-meta">
             <span><i class="fa fa-fw fa-eye"></i> {{$post->seen}}</span>  
-            <span><i class="fa fa-fw fa-heart"></i> {{$post->likes}}</span>  
-            <span><i class="fa fa-fw fa-comment"></i> 15</span>
+            <span><i class="fa fa-fw fa-thumbs-up"></i> {{$post->likes}}</span>
+            <span><i class="fa fa-fw fa-thumbs-down"></i> {{$post->dislikes}}</span>
+            @php 
+            {{$comments = DB::table("comments")->where("post_id", $post->id)->get();}}
+            @endphp 
+            <span><i class="fa fa-fw fa-comment"></i>{{count($comments)}}</span>
           </p>
           <p class="post-meta">Теги:
             @php
@@ -30,7 +34,13 @@
           </p>
           <p class="post-meta">
             Написав: <b><a href="">{{$post->author}}</a><i> 
-            {{$post->created_at}}</i></b>
+            @php
+            {{
+              $date = date_create($post->created_at);
+              $date = date_format($date, 'd.m.Y');
+            }}
+            @endphp
+            {{$date}}</i></b>
           </p>
         </div>
         <hr>
