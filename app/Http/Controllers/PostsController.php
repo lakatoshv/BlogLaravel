@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Posts;
+use App\Comments;
 
 class PostsController extends Controller
 {
@@ -14,7 +15,7 @@ class PostsController extends Controller
     }
     public function show($id){
     	$post = Posts::find($id);
-	    $comments = DB::table("comments")->where("post_id", $id)->get();
+	    $comments = Comments::where("post_id", $id)->get();
 	   	return view('posts.show', compact("post"), compact("comments"));
     }
 }
