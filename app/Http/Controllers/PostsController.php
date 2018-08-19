@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Posts;
-use App\Comments;
+use App\Models\Posts;
+use App\Models\Comments;
 
 class PostsController extends Controller
 {
