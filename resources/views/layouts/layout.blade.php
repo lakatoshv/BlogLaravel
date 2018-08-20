@@ -35,6 +35,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>LaravelBlog</h1>
+              <hr class="hr">
               <span class="subheading">Цікавий блог про цікаве</span>
             </div>
           </div>

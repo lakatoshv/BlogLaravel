@@ -14,4 +14,7 @@
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");
 Route::get('posts/{id}', "PostsController@show");
+Route::get('/about', function () {
+    return view('about');
+});
 
