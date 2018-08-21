@@ -1,4 +1,7 @@
 @extends("layouts.layout")
+@section("title")
+  <title>LaravelBlog - Про нас</title>
+@endsection
 @section("content")
 <!-- About -->
 <section id="about">

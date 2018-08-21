@@ -1,4 +1,7 @@
 @extends("layouts.layout")
+@section("title")
+  <title>LaravelBlog - Головна</title>
+@endsection
 @section("content")
 <!-- Main Content -->
 <div class="container">

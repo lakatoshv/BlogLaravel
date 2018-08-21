@@ -1,4 +1,7 @@
 @extends("layouts.layout")
+@section("title")
+  <title>LaravelBlog - Контакти</title>
+@endsection
 @section("content")
 <link rel="stylesheet" href="{{ asset('css/post.css') }}">
 <section id="contact">

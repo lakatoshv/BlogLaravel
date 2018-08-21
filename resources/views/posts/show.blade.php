@@ -2,6 +2,9 @@
   {{$img = $post->imgurl;}}
 @endphp
 @extends("layouts.layout")
+@section("title")
+  <title>LaravelBlog - {{$post->title}}</title>
+@endsection
 @section("content")
 <link rel="stylesheet" href="{{ asset('css/post.css') }}">
 <link rel="stylesheet" href="{{ asset('css/post_responsive.css') }}">
