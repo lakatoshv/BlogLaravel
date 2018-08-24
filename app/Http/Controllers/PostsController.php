@@ -9,6 +9,7 @@ use App\Models\Comments;
 
 class PostsController extends Controller
 {
+	
     public function index(){
     	$posts = Posts::all();
     	return view('index', compact('posts'));
