@@ -21,7 +21,4 @@ Route::get('/contact', function () {
     return view('contacts');
 });
 
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
