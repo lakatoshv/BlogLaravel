@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" =>["auth"]], function(){
+	Route::get("/", "DashboardController@dashboard")->name("admin.index");
+});
  
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");
@@ -20,5 +24,4 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contacts');
 });
-
 Auth::routes();
