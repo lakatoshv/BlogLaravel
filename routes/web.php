@@ -11,10 +11,10 @@
 |
 */
 
-Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" =>["auth"]], function(){
+Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["admin"]], function(){
 	Route::get("/", "DashboardController@dashboard")->name("admin.index");
 });
- 
+  
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");
 Route::get('posts/{id}', "PostsController@show");
