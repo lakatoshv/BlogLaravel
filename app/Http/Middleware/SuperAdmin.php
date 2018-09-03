@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class SuperAdmin
 {
@@ -15,7 +16,7 @@ class SuperAdmin
      */
     public function handle($request, Closure $next)
     {
-       if ( Auth::check() && Auth::user()->role == "SuperAdmin" )
+       if ( Auth::check() && Auth::user()->role == "superadmin" )
         {
             return $next($request);
         }

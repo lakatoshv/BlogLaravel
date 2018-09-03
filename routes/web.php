@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["admin"]], function(){
+Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["admin"], "middleware" => ["admin"]], function(){
 	Route::get("/", "DashboardController@dashboard")->name("admin.index");
 });
   
