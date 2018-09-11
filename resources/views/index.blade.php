@@ -7,6 +7,11 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10 col-md-10 mx-auto">
+      @if ( Auth::check() && Auth::user()->role == "admin" )
+          <div class="post-preview">
+            <a href="{{ url('/posts/create') }}">Написати пост</a>
+          </div>
+        @endif
       @foreach($posts as $post)
         <div class="post-preview">
           <a href="{{ url('/posts/'.$post->id) }}">

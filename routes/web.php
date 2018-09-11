@@ -11,10 +11,20 @@
 |
 */
 
-Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["admin"], "middleware" => ["admin"]], function(){
+/*
+Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["admin", "superadmin"]], function(){
 	Route::get("/", "DashboardController@dashboard")->name("admin.index");
 });
-  
+Route::group(["middleware" => ["auth", "admin", "editor", "superadmin"]], function(){
+	Route::get("posts/create", "PostsController@create");
+});
+*/
+Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["admin"]], function(){
+	Route::get("/", "DashboardController@dashboard")->name("admin.index");
+});
+Route::group(["middleware" => ["auth"]], function(){
+	Route::get("posts/create", "PostsController@create");
+});
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");
 Route::get('posts/{id}', "PostsController@show");

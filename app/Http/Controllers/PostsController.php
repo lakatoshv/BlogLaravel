@@ -19,4 +19,8 @@ class PostsController extends Controller
 	    $comments = Comments::where("post_id", $id)->get();
 	   	return view('posts.show', compact("post"), compact("comments"));
     }
+    public function create(){
+        $posts = Posts::all();
+        return view('posts.create');
+    }
 }
