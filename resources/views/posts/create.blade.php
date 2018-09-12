@@ -3,61 +3,110 @@
   <title>LaravelBlog - Контакти</title>
 @endsection
 @section("content")
-  <link rel="stylesheet" href="{{ asset('css/post.css') }}">
-  <section id="contact">
-    <div class="container">
-	    <h2 class="text-center" id="form-header"><i class="fa fa-envelope"></i> Форма зворотнього звязку</h2>
-	    <div class="row justify-content-center">
-			  <div class="col-12 col-md-8 col-lg-6 pb-5">
-				  <form action="mail.php" method="post">
-            <div class="card border-primary rounded-0">
-              <div class="card-body p-3">
-               	<div class="row">
-                  <div class="col-lg-6 ml-auto text-center">
-						       	<div class="form-group">
-                      <div class="input-group mb-2">
-                     		<div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="fa fa-user text-info"></i>
-                          </div>
-                        </div>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ім'я" required>
-                      </div>
-                    </div>
-					        </div>
-					        <div class="col-lg-6 mr-auto text-center">
-					          <div class="form-group">
-                      <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="fa fa-envelope text-info"></i>
-                          </div>
-                        </div>
-                        <input type="email" class="form-control" id="nombre" name="email" placeholder="Електронна пошта" required>
-                      </div>
-                 		</div>
-					        </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fa fa-comment text-info"></i>
-                      </div>
-                    </div>
-                    <textarea class="form-control" placeholder="Повідомлення" required></textarea>
-                  </div>
-                </div>
-
-                <div class="text-center">
-                  <input type="submit" value="Надіслати" class="btn btn-info btn-block rounded-0 py-2">
-                </div>
+<div class="container">
+  <div class="row" data-ref="container">
+    <div class="col-lg-12">
+      <h2 class="text-center" id="form-header">Додати новий пост</h2>
+      <form method="post" action="" enctype='multipart/form-data'>
+        <div class="form-group">
+          <label for="title" tag="" class="optional">Тема посту:</label>
+          <input type="text" name="title" id="title" value="" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="description" tag="" class="optional">Короткий опис:</label>
+          <textarea name="description" id="description" class="form-control" rows="10" cols="80"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="content" tag="" class="optional">Пост:</label>
+          <textarea name="content" id="content" class="form-control" rows="24" cols="80"></textarea>
+        </div>
+        <label for="content" tag="" class="optional">Основна картинка</label>
+        <div class="radio">
+          <label>
+            <input class="form-check-input" type="radio" name="type" id="upload" value="upload">
+            <label for="upload">Вибрати файл з комп'ютера</label>
+          </label>
+          <div class="upload" style="display: none;">
+            <div id="objects">
+              <div class="form-group" id="add-image1" >
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+                <label for="gallery_img" tag="" class="optional">Картинка:</label>
+                <dd>
+                  <input type="hidden" name="MAX_FILE_SIZE" value="2097152" id="MAX_FILE_SIZE">
+                  <input type="file" name="gallery_img" id="gallery_img" class="form-control">
+                </dd>
               </div>
             </div>
-          </form>
+            <p id="add-input" class="btn btn-default">Додати ще одну картинку</p>
+          </div>
         </div>
-      </div>
+        <div class="radio">
+          <label>
+            <input class="form-check-input" type="radio" name="type" id="addurl" value="addurl">
+            <label for="addurl">Вказати URL-адресу</label>
+          </label>
+          <div class="addurl" style="display: none;">  
+            <div class="form-group">
+              <label for="img_name" tag="" class="optional">Назва картинки:</label>
+              <input type="text" name="img_name" id="img_name" value="" class="form-control">
+              <p>Наприклад: Картинка</p>
+            </div>  
+            <div class="form-group">
+              <label for="img_url" tag="" class="optional">URL-адреса:</label>
+              <input type="text" name="img_url" id="img_url" value="" class="form-control">
+              <p>Наприклад: https://some_image.com/example.jpg</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tegs" tag="" class="optional">Теги:</label>
+          <input type="text" name="tegs" id="tegs" value="" class="form-control">
+        </div>
+        <input type="submit" name="submit" id="submit" value="Додати" class="btn btn-default">
+      </form>
     </div>
-  </section>
+  </div>
+</div>
+<script>
+    $("input[name=type]").click(function() {
+        if($('input[name=type]:checked').val() == "upload"){
+            $(".addurl").hide();
+            $(".upload").show();
+        }
+        else if($('input[name=type]:checked').val() == "addurl"){
+            $(".addurl").show();
+            $(".upload").hide();
+        }
+    });
+    $(document).ready(
+    function(){
+        //додавання нової картинки
+        var count_input = 1;
+        $("#add-input").click(function(){
+            count_input++;
+            $("<div id='add-image"+count_input+"' class='form-group'><input type='hidden' name='MAX_FILE_SIZE' value='2000000'/><input type='file' class='form-control' name='gallery_img[]'/><a class='delete-input' rel='"+count_input+"'>Видалити</a></div>").fadeIn(300).appendTo("#objects"); 
+        });
+        //видалення картинки
+        $(document).on("click", ".delete-input", function(){
+            var rel = $(this).attr("rel");
+            $("#add-image"+rel).fadeOut(300, function(){
+                $("#add-image"+rel).remove();
+            });
+        });
+        $("td.delete").click(function() {
+            document.getElementById('delete_id').value = $('div.id').html();
+        });
+        $("[data-toggle=tooltip]").tooltip();
+    }
+);
+</script>
+<script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
+<script>
+  tinymce.init({ 
+    selector:'textarea',
+     plugins: "media autolink autoresize autoresize charmap code textcolor colorpicker contextmenu directionality emoticons fullscreen help hr image imagetools importcss insertdatetime legacyoutput link lists noneditable pagebreak paste preview print save searchreplace tabfocus table template textcolor textpattern toc visualblocks visualchars wordcount",
+  menubar: "insert tools view format edit file table",
+  toolbar: "media charmap code forecolor backcolor ltr rtl emoticons fullscreen help image insertdatetime link numlist bullist pagebreak paste preview print save searchreplace table template textcolor toc visualblocks visualchars"
+  });
+</script>
 @endsection
-

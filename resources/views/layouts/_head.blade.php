@@ -20,5 +20,5 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{ asset('css/clean-blog.min.css') }}">
-
+    <script src="{{ asset('plugins/jquery/jquery.js') }}"></script>
   </head>
