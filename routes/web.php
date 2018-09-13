@@ -24,6 +24,7 @@ Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["adm
 });
 Route::group(["middleware" => ["auth"]], function(){
 	Route::get("posts/create", "PostsController@create");
+	Route::post("post", "PostsController@store");
 });
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");

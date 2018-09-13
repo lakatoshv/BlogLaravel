@@ -16,11 +16,11 @@
         <div class="post-preview">
           <a href="{{ url('/posts/'.$post->id) }}">
             <h2 class="post-title">
-              {{$post->title}}
+              {{html_entity_decode($post->title)}}
             </h2>
-            <img style="width: 100%; height: 300px;" src="{{$post->imgurl}}"/>
+            <img style="width: 100%; height: 300px;" src="{!! $post->imgurl !!}"/>
             <h3 class="post-subtitle">
-              {{$post->description}}
+              {!! $post->description !!}
             </h3>
           </a>
           <p class="post-meta">

@@ -14,11 +14,11 @@
     <div class="col-lg-12 col-md-10 mx-auto">
       <div class="post-preview">
         <h2 class="post-title text-center">
-          {{$post->title}}
+          {!! $post->title !!}
         </h2>
-        <img style="width: 100%; height: 300px;" src="{{$post->imgurl}}"/>
+        <img style="width: 100%; height: 300px;" src="{!! $post->imgurl !!}"/>
         <h3 class="post-subtitle text-center">
-          {{$post->description}}
+          {!! $post->description !!}
         </h3>
       </a>
       <p class="post-meta">
@@ -34,7 +34,7 @@
           <a href="#">{{$tag}}</a>,  
         @endforeach
       </p>
-      <p class="text-justify">{{$post->content}}</p>
+      <p class="text-justify">{!! $post->content !!}</p>
       <p class="post-meta">
         Написав: <b><a href="">{{$post->author}}</a><i> 
         @php

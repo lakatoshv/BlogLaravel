@@ -19,9 +19,9 @@ class Posts extends Migration
             $table->text("description");
             $table->text("content");
             $table->text("author");
-            $table->integer("seen");
-            $table->integer("likes");
-            $table->integer("dislikes");
+            $table->integer("seen")->default(0);
+            $table->integer("likes")->default(0);
+            $table->integer("dislikes")->default(0);
             $table->string("tags");
             $table->string("imgurl");
             $table->string("access");

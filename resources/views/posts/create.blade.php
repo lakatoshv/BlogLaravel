@@ -1,13 +1,14 @@
 @extends("layouts.layout")
 @section("title")
-  <title>LaravelBlog - Контакти</title>
+  <title>LaravelBlog - Додати новий пост</title>
 @endsection
 @section("content")
 <div class="container">
   <div class="row" data-ref="container">
     <div class="col-lg-12">
       <h2 class="text-center" id="form-header">Додати новий пост</h2>
-      <form method="post" action="" enctype='multipart/form-data'>
+      <form method="post" action="{{ url('/post') }}" enctype='multipart/form-data'>
+        {{csrf_field()}}
         <div class="form-group">
           <label for="title" tag="" class="optional">Тема посту:</label>
           <input type="text" name="title" id="title" value="" class="form-control">
@@ -37,7 +38,7 @@
                 </dd>
               </div>
             </div>
-            <p id="add-input" class="btn btn-default">Додати ще одну картинку</p>
+            <!-- <p id="add-input" class="btn btn-default">Додати ще одну картинку</p> -->
           </div>
         </div>
         <div class="radio">
@@ -45,12 +46,7 @@
             <input class="form-check-input" type="radio" name="type" id="addurl" value="addurl">
             <label for="addurl">Вказати URL-адресу</label>
           </label>
-          <div class="addurl" style="display: none;">  
-            <div class="form-group">
-              <label for="img_name" tag="" class="optional">Назва картинки:</label>
-              <input type="text" name="img_name" id="img_name" value="" class="form-control">
-              <p>Наприклад: Картинка</p>
-            </div>  
+          <div class="addurl" style="display: none;"> 
             <div class="form-group">
               <label for="img_url" tag="" class="optional">URL-адреса:</label>
               <input type="text" name="img_url" id="img_url" value="" class="form-control">
@@ -59,8 +55,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="tegs" tag="" class="optional">Теги:</label>
-          <input type="text" name="tegs" id="tegs" value="" class="form-control">
+          <label for="tags" tag="" class="optional">Теги:</label>
+          <input type="text" name="tags" id="tags" value="" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="alias" tag="" class="optional">Тема посту на англійській і без пропусків(посилання):</label>
+          <input type="text" name="alias" id="alias" value="" class="form-control">
         </div>
         <input type="submit" name="submit" id="submit" value="Додати" class="btn btn-default">
       </form>
