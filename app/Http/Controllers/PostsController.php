@@ -25,7 +25,15 @@ class PostsController extends Controller
         return view('posts.create');
     }
     public function store(){
-        //dd(request()->all()); 
+        //dd(request()->all());
+        $this->validate(request(), [
+            "title" => "required|min:2",
+            "description" => "required",
+            "content" => "required",
+            "tags" => "required",
+            "img_url" => "required",
+            "alias" => "required",
+        ]);
         $post = new Posts();
         $post->title = request("title");
         $post->description = html_entity_decode(request("description"));
@@ -41,6 +49,11 @@ class PostsController extends Controller
         $post->created_at = date("Y-m-d H:i:s");
         $post->alias = "test";
         $post->save();
+        /*
+        Posts::create(
+            request(array())
+        );
+        */
         return redirect("/");
     }
 }

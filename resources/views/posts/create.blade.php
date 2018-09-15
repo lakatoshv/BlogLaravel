@@ -9,6 +9,7 @@
       <h2 class="text-center" id="form-header">Додати новий пост</h2>
       <form method="post" action="{{ url('/post') }}" enctype='multipart/form-data'>
         {{csrf_field()}}
+        @include("layouts.errors")
         <div class="form-group">
           <label for="title" tag="" class="optional">Тема посту:</label>
           <input type="text" name="title" id="title" value="" class="form-control">
@@ -22,6 +23,7 @@
           <textarea name="content" id="content" class="form-control" rows="24" cols="80"></textarea>
         </div>
         <label for="content" tag="" class="optional">Основна картинка</label>
+        <!--
         <div class="radio">
           <label>
             <input class="form-check-input" type="radio" name="type" id="upload" value="upload">
@@ -38,7 +40,7 @@
                 </dd>
               </div>
             </div>
-            <!-- <p id="add-input" class="btn btn-default">Додати ще одну картинку</p> -->
+            <p id="add-input" class="btn btn-default">Додати ще одну картинку</p>
           </div>
         </div>
         <div class="radio">
@@ -52,6 +54,14 @@
               <input type="text" name="img_url" id="img_url" value="" class="form-control">
               <p>Наприклад: https://some_image.com/example.jpg</p>
             </div>
+          </div>
+        </div>
+        -->
+        <div class="addurl"> 
+          <div class="form-group">
+            <label for="img_url" tag="" class="optional">URL-адреса:</label>
+            <input type="text" name="img_url" id="img_url" value="" class="form-control">
+            <p>Наприклад: https://some_image.com/example.jpg</p>
           </div>
         </div>
         <div class="form-group">
