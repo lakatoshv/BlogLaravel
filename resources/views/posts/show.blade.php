@@ -54,17 +54,35 @@
 <div class="container">
   <!-- Similar Posts -->
   <div class="similar_posts">
+   
+
+       
+        <div class="form-group">
+          <label for="title" tag="" class="optional">Тема посту:</label>
+          <input type="text" name="title" id="title" value="" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="description" tag="" class="optional">Короткий опис:</label>
+          <textarea name="description" id="description" class="form-control" rows="10" cols="80"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="content" tag="" class="optional">Пост:</label>
+          <textarea name="content" id="content" class="form-control" rows="24" cols="80"></textarea>
+        </div>
+
     <!-- Post Comment -->
     <div class="post_comment">
       <div class="post_comment_title">Post Comment</div>
       <div class="row">
         <div class="col-lg-12">
           <div class="post_comment_form_container">
-            <form method="post">
-              <input type="text" class="comment_input comment_input_name" placeholder="Your Name" required="required">
-              <input type="email" class="comment_input comment_input_email" placeholder="Your Email" required="required">
-              <textarea class="comment_text" placeholder="Your Comment" required="required"></textarea>
-              <button type="submit" class="comment_button">Post Comment</button>
+            <form method="post" action="{{ url('/add-comment') }}" enctype='multipart/form-data'>
+              {{csrf_field()}}
+              @include("layouts.errors")
+              <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required">
+              <input name="email" id="email" type="email" class="comment_input comment_input_email" placeholder="Your Email" required="required">
+              <textarea name="comment" id="comment" class="comment_text" placeholder="Your Comment" required="required"></textarea>
+              <button type="submit" class="comment_button">Додати коментар</button>
             </form>
           </div>
         </div>
