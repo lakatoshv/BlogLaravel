@@ -54,21 +54,6 @@
 <div class="container">
   <!-- Similar Posts -->
   <div class="similar_posts">
-   
-
-       
-        <div class="form-group">
-          <label for="title" tag="" class="optional">Тема посту:</label>
-          <input type="text" name="title" id="title" value="" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="description" tag="" class="optional">Короткий опис:</label>
-          <textarea name="description" id="description" class="form-control" rows="10" cols="80"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="content" tag="" class="optional">Пост:</label>
-          <textarea name="content" id="content" class="form-control" rows="24" cols="80"></textarea>
-        </div>
 
     <!-- Post Comment -->
     <div class="post_comment">
@@ -79,7 +64,7 @@
             <form method="post" action="{{ url('/add-comment') }}" enctype='multipart/form-data'>
               {{csrf_field()}}
               @include("layouts.errors")
-              <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required">
+              <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required" value="{{$post->id}}">
               <input name="email" id="email" type="email" class="comment_input comment_input_email" placeholder="Your Email" required="required">
               <textarea name="comment" id="comment" class="comment_text" placeholder="Your Comment" required="required"></textarea>
               <button type="submit" class="comment_button">Додати коментар</button>
@@ -102,14 +87,38 @@
                   <div class="comment_panel d-flex flex-row align-items-center justify-content-start">
                     <span><I class="fa fa-3x fa-user-circle"></I></span>
                     <small class="post_meta">
-                      <a href="#">{{$comment->author}}</a>
+                      <a href="#" id="author{{$comment->author}}">{{$comment->author}}</a>
                       <span>{{$comment->created_at}}</span>
                     </small>
                     <button type="button" class="reply_button ml-auto">Відповісти</button>
                   </div>
-                  <div class="comment_content">
+                  <div class="comment_content{{$comment->id}}">
                     <p>{{$comment->comment}}</p>
                   </div>
+                  <p class="pull-right">
+                    <button 
+                      type="button"
+                      class="btn btn-sm text-white btn-primary"
+                      id="{{$comment->id}}"
+                      onclick="setEditCommentValues(this.id)"
+                      data-toggle="modal"
+                      data-target="#edit-comment">
+                        <i class="fa fa-edit"></i>
+                        Редагувати
+                    </button>
+                    <button 
+                      type="button"
+                      class="btn btn-sm text-white btn-danger">
+                        <i class="fa fa-trash"></i>
+                        Видалити
+                    </button>
+                    <button 
+                      type="button"
+                      class="btn btn-sm btn-outline-success ml-2">
+                        <i class="fa fa-reply"></i>
+                        Відповісти
+                    </button>
+                  </p>
                 </div>
 
                 <!-- Reply - ->
@@ -149,5 +158,38 @@
       </div>
     </div>
   </div>
+</div>
+
+<script>
+    function setEditCommentValues(id) {
+        var author = $("#author" + id).text();
+        var comment = $(".comment_content" + id + " p").text();
+        alert(author + "\t" + comment)
+        $("#edit-id").val(id);
+        $("#edit-author").val(author);
+        $("#edit-content").val(comment);
+    }
+</script>
+<div id="edit-comment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <form method="post" action="{{ url('/edit-comment') }}" enctype='multipart/form-data'>
+              {{csrf_field()}}
+              @include("layouts.errors")
+              <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required" value="{{$post->id}}">
+              <input name="comment_id" id="edit-id" type="hidden" class="comment_input comment_input_name" required="required">
+              <input name="author" id="edit-author" type="text" class="comment_input comment_input_email" placeholder="Your Email" required="required">
+              <textarea name="comment" id="edit-content" class="comment_text" placeholder="Your Comment" required="required"></textarea>
+              <button type="submit" class="comment_button">Додати коментар</button>
+            </form>
+        </div>
+
+    </div>
 </div>
 @endsection
