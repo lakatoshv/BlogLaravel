@@ -63,4 +63,10 @@ class PostsController extends Controller
         $post->save();
         return redirect("/posts/".$post->id);
     }
+    public function dislike($id){
+        $post = Posts::find($id);
+        $post->dislikes += 1;
+        $post->save();
+        return redirect("/posts/".$post->id);
+    }
 }

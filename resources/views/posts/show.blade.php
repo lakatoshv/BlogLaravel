@@ -46,7 +46,7 @@
         {{$date}}</i></b>
       </p>
       <a class="btn btn-xs btn-info" href="{{ url('/posts/'.$post->id.'/like') }}"><span class="fa fa-thumbs-up"></span> Подобається</a>
-      <button class="btn btn-sm btn-danger"><span class="fa fa-thumbs-down"></span> Неподобається</button>
+      <a class="btn btn-sm btn-danger" href="{{ url('/posts/'.$post->id.'/dislike') }}"><span class="fa fa-thumbs-down"></span> Неподобається</a>
     </div>
   </div>
 </div>
