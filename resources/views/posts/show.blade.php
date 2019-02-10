@@ -45,7 +45,7 @@
         @endphp
         {{$date}}</i></b>
       </p>
-      <button class="btn btn-xs btn-info" st><span class="fa fa-thumbs-up"></span> Подобається</button>
+      <a class="btn btn-xs btn-info" href="{{ url('/posts/'.$post->id.'/like') }}"><span class="fa fa-thumbs-up"></span> Подобається</a>
       <button class="btn btn-sm btn-danger"><span class="fa fa-thumbs-down"></span> Неподобається</button>
     </div>
   </div>

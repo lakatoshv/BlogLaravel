@@ -56,4 +56,11 @@ class PostsController extends Controller
         */
         return redirect("/");
     }
+
+    public function like($id){
+        $post = Posts::find($id);
+        $post->likes += 1;
+        $post->save();
+        return redirect("/posts/".$post->id);
+    }
 }

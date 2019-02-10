@@ -25,6 +25,7 @@ Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["adm
 Route::group(["middleware" => ["auth"]], function(){
 	Route::get("posts/create", "PostsController@create");
 	Route::post("post", "PostsController@store");
+	Route::get('posts/{id}/like', "PostsController@like");
 
 	Route::post("add-comment", "CommentsController@create");
 	Route::post("edit-comment", "CommentsController@edit");
