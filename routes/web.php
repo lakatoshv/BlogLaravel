@@ -25,8 +25,10 @@ Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["adm
 Route::group(["middleware" => ["auth"]], function(){
 	Route::get("posts/create", "PostsController@create");
 	Route::post("post", "PostsController@store");
+
 	Route::post("add-comment", "CommentsController@create");
 	Route::post("edit-comment", "CommentsController@edit");
+	Route::post("/delete-comment", "CommentsController@delete");
 });
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");

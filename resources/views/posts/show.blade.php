@@ -107,7 +107,11 @@
                     </button>
                     <button 
                       type="button"
-                      class="btn btn-sm text-white btn-danger">
+                      class="btn btn-sm text-white btn-danger"
+                      id="{{$comment->id}}"
+                      onclick="setDeleteCommentValues(this.id)"
+                      data-toggle="modal"
+                      data-target="#delete-comment">
                         <i class="fa fa-trash"></i>
                         Видалити
                     </button>
@@ -166,6 +170,10 @@
         $("#edit-id").val(id);
         $("#edit-content").val(comment);
     }
+    function setDeleteCommentValues(id) {
+        var comment = $(".comment_content" + id + " p").text();
+        $("#delete-id").val(id);
+    }
 </script>
 <div id="edit-comment" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -184,6 +192,27 @@
                 <input name="comment_id" id="edit-id" type="hidden" class="comment_input comment_input_name" required="required">
                 <textarea name="comment" id="edit-content" class="comment_text" placeholder="Your Comment" required="required"></textarea>
                 <button type="submit" class="comment_button">Редагувати</button>
+              </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="delete-comment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Видалити цей коментар?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{{ url('/delete-comment') }}" enctype='multipart/form-data'>
+                {{csrf_field()}}
+                @include("layouts.errors")
+                <input name="comment_id" id="delete-id" type="hidden" class="comment_input comment_input_name" required="required">
+                <button type="submit" class="comment_button">Видалити</button>
               </form>
             </div>
         </div>

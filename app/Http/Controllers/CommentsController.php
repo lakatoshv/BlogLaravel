@@ -33,4 +33,11 @@ class CommentsController extends Controller
         $comment->save();
         return redirect("/posts/".request("post_id"));
     }
+
+    public function delete(){
+        $comment = Comments::find(request("comment_id"));
+        $post_id = $comment->post_id;
+        $comment->delete();
+        return redirect("/posts/".$post_id);
+    }
 }
