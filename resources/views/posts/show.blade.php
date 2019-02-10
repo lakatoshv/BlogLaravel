@@ -65,7 +65,6 @@
               {{csrf_field()}}
               @include("layouts.errors")
               <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required" value="{{$post->id}}">
-              <input name="email" id="email" type="email" class="comment_input comment_input_email" placeholder="Your Email" required="required">
               <textarea name="comment" id="comment" class="comment_text" placeholder="Your Comment" required="required"></textarea>
               <button type="submit" class="comment_button">Додати коментар</button>
             </form>
@@ -164,9 +163,7 @@
     function setEditCommentValues(id) {
         var author = $("#author" + id).text();
         var comment = $(".comment_content" + id + " p").text();
-        alert(author + "\t" + comment)
         $("#edit-id").val(id);
-        $("#edit-author").val(author);
         $("#edit-content").val(comment);
     }
 </script>
@@ -176,18 +173,19 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title">Редагувати коментар</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
             </div>
-            <form method="post" action="{{ url('/edit-comment') }}" enctype='multipart/form-data'>
-              {{csrf_field()}}
-              @include("layouts.errors")
-              <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required" value="{{$post->id}}">
-              <input name="comment_id" id="edit-id" type="hidden" class="comment_input comment_input_name" required="required">
-              <input name="author" id="edit-author" type="text" class="comment_input comment_input_email" placeholder="Your Email" required="required">
-              <textarea name="comment" id="edit-content" class="comment_text" placeholder="Your Comment" required="required"></textarea>
-              <button type="submit" class="comment_button">Додати коментар</button>
-            </form>
+            <div class="modal-body">
+              <form method="post" action="{{ url('/edit-comment') }}" enctype='multipart/form-data'>
+                {{csrf_field()}}
+                @include("layouts.errors")
+                <input name="post_id" id="post_id" type="hidden" class="comment_input comment_input_name" required="required" value="{{$post->id}}">
+                <input name="comment_id" id="edit-id" type="hidden" class="comment_input comment_input_name" required="required">
+                <textarea name="comment" id="edit-content" class="comment_text" placeholder="Your Comment" required="required"></textarea>
+                <button type="submit" class="comment_button">Редагувати</button>
+              </form>
+            </div>
         </div>
 
     </div>

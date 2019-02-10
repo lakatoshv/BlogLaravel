@@ -26,6 +26,7 @@ Route::group(["middleware" => ["auth"]], function(){
 	Route::get("posts/create", "PostsController@create");
 	Route::post("post", "PostsController@store");
 	Route::post("add-comment", "CommentsController@create");
+	Route::post("edit-comment", "CommentsController@edit");
 });
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");
