@@ -13,11 +13,24 @@ class PostsController extends Controller
 	
     public function index(){
     	$posts = Posts::all();
+        foreach ($posts as $post) {
+            $author = DB::table('users')->where('id',$post->author) -> first();
+            if($author)
+                $post->author = $author->name;
+        }
     	return view('index', compact('posts'));
     }
     public function show($id){
     	$post = Posts::find($id);
+        $author = DB::table('users')->where('id',$post->author) -> first();
+        if($author)
+            $post->author = $author->name;
 	    $comments = Comments::where("post_id", $id)->get();
+        foreach ($comments as $comment) {
+            $author = DB::table('users')->where('id',$comment->author) -> first();
+            if($author)
+                $comment->author = $author->name;
+        }
 	   	return view('posts.show', compact("post"), compact("comments"));
     }
     public function create(){
@@ -38,7 +51,7 @@ class PostsController extends Controller
         $post->title = request("title");
         $post->description = html_entity_decode(request("description"));
         $post->content = html_entity_decode(request("content"));
-        $post->author = Auth::user()->name;
+        $post->author = Auth::user()->id;
         $post->tags = request("tags");
         if(request("gallery_img") != null){}
         else if(request("img_url") != null) $post->imgurl = request("img_url");
