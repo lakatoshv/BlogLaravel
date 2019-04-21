@@ -15,7 +15,7 @@ class CommentsController extends Controller
         ]);
         $comment = new Comments();
         $comment->comment = html_entity_decode(request("comment"));
-        $comment->author = Auth::user()->name;
+        $comment->author = Auth::user()->id;
         $comment->post_id = request("post_id");
         $comment->created_at = date("Y-m-d H:i:s");
         $comment->save();
@@ -28,9 +28,12 @@ class CommentsController extends Controller
             "comment" => "required|min:2"
         ]);
         $comment = Comments::find(request("comment_id"));
-        $comment->comment = html_entity_decode(request("comment"));
-        $comment->created_at = date("Y-m-d H:i:s");
-        $comment->save();
+        if($comment->author == Auth::user()->id){
+            $comment->comment = html_entity_decode(request("comment"));
+            $comment->created_at = date("Y-m-d H:i:s");
+            $comment->save();
+        }
+        
         return redirect("/posts/".request("post_id"));
     }
 
