@@ -39,8 +39,10 @@ class CommentsController extends Controller
 
     public function delete(){
         $comment = Comments::find(request("comment_id"));
-        $post_id = $comment->post_id;
-        $comment->delete();
-        return redirect("/posts/".$post_id);
+        if($comment->author == Auth::user()->id){
+            $post_id = $comment->post_id;
+            $comment->delete();
+            return redirect("/posts/".$post_id);
+        }
     }
 }
