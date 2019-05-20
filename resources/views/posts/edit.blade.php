@@ -1,27 +1,27 @@
 @extends("layouts.layout")
 @section("title")
-  <title>LaravelBlog - Додати новий пост</title>
+  <title>LaravelBlog - Редагувати пост</title>
 @endsection
 @section("content")
 <div class="container">
   <div class="row" data-ref="container">
     <div class="col-lg-12">
-      <h2 class="text-center" id="form-header">Додати новий пост</h2>
-      <form method="post" action="{{ url('/post') }}" enctype='multipart/form-data'>
+      <h2 class="text-center" id="form-header">Редагувати пост</h2>
+      <form method="post" action="{{ url('/update') }}" enctype='multipart/form-data'>
         {{csrf_field()}}
         @include("layouts.errors")
-        <input name="id" id="id" type="hidden" required="required" value="{{$post->id}}">
+        <input type="text" name="id" id="post-id" class="form-control" value="{{ $post->id }}">
         <div class="form-group">
           <label for="title" tag="" class="optional">Тема посту:</label>
-          <input type="text" name="title" id="title" value="" class="form-control">
+          <input type="text" name="title" id="title" class="form-control" value="{{ $post->title }}">
         </div>
         <div class="form-group">
           <label for="description" tag="" class="optional">Короткий опис:</label>
-          <textarea name="description" id="description" class="form-control" rows="10" cols="80"></textarea>
+          <textarea name="description" id="description" class="form-control" rows="10" cols="80">{!! $post->description !!}</textarea>
         </div>
         <div class="form-group">
           <label for="content" tag="" class="optional">Пост:</label>
-          <textarea name="content" id="content" class="form-control" rows="24" cols="80"></textarea>
+          <textarea name="content" id="content" class="form-control" rows="24" cols="80">{!! $post->content !!}</textarea>
         </div>
         <label for="content" tag="" class="optional">Основна картинка</label>
         <!--
@@ -61,19 +61,19 @@
         <div class="addurl"> 
           <div class="form-group">
             <label for="img_url" tag="" class="optional">URL-адреса:</label>
-            <input type="text" name="img_url" id="img_url" value="" class="form-control">
+            <input type="text" name="img_url" id="img_url" class="form-control" value="{{ $post->imgurl }}">
             <p>Наприклад: https://some_image.com/example.jpg</p>
           </div>
         </div>
         <div class="form-group">
           <label for="tags" tag="" class="optional">Теги:</label>
-          <input type="text" name="tags" id="tags" value="" class="form-control">
+          <input type="text" name="tags" id="tags" class="form-control" value="{{ $post->tags }}">
         </div>
         <div class="form-group">
           <label for="alias" tag="" class="optional">Тема посту на англійській і без пропусків(посилання):</label>
-          <input type="text" name="alias" id="alias" value="" class="form-control">
+          <input type="text" name="alias" id="alias" class="form-control" value="{{ $post->alias }}">
         </div>
-        <input type="submit" name="submit" id="submit" value="Додати" class="btn btn-default">
+        <input type="submit" name="submit" id="submit" value="Зберегти" class="btn btn-default">
       </form>
     </div>
   </div>

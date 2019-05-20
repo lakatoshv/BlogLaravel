@@ -82,4 +82,34 @@ class PostsController extends Controller
         $post->save();
         return redirect("/posts/".$post->id);
     }
+
+    public function edit($id){
+        $post = Posts::find($id);
+            return view('posts.edit', compact("post"));
+    }
+
+    public function update(){
+        $id = html_entity_decode(request("id"));
+        //Request $request, $id
+        $this->validate(request(), [
+            "title" => "required|min:2",
+            "description" => "required",
+            "content" => "required",
+            "tags" => "required",
+            "img_url" => "required",
+            "alias" => "required",
+        ]);
+        $post = Posts::find($id);
+            $post->title = html_entity_decode(request("title"));
+            $post->description = html_entity_decode(request("description"));
+            $post->content = html_entity_decode(request("content"));
+            $post->tags = html_entity_decode(request("tags"));
+            $post->imgurl = html_entity_decode(request("img_url"));
+            $post->alias = html_entity_decode(request("alias"));
+            $post->created_at = date("Y-m-d H:i:s");
+            $post->save();
+            return redirect("/posts/".request("post_id"));
+        
+        
+    }
 }
