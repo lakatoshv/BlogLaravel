@@ -85,7 +85,11 @@ class PostsController extends Controller
 
     public function edit($id){
         $post = Posts::find($id);
+        if($post->author == Auth::user()->id){
             return view('posts.edit', compact("post"));
+        }
+        else
+            return redirect("/");
     }
 
     public function update(){
@@ -100,6 +104,7 @@ class PostsController extends Controller
             "alias" => "required",
         ]);
         $post = Posts::find($id);
+        if($post->author == Auth::user()->id){
             $post->title = html_entity_decode(request("title"));
             $post->description = html_entity_decode(request("description"));
             $post->content = html_entity_decode(request("content"));
@@ -109,6 +114,9 @@ class PostsController extends Controller
             $post->created_at = date("Y-m-d H:i:s");
             $post->save();
             return redirect("/posts/".request("post_id"));
+        }
+        else
+            return redirect("/");
         
         
     }
