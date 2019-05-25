@@ -18,7 +18,7 @@
         </h2>
         <br/>
         @guest
-        @else
+        @elseif($author_id == Auth::user()->id)
         <p class="pull-right">
           <a type="button"
             class="btn btn-sm text-white btn-primary"

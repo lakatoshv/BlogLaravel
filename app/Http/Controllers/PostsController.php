@@ -14,6 +14,7 @@ class PostsController extends Controller
     public function index(){
     	$posts = Posts::all();
         foreach ($posts as $post) {
+            $post->author_id = $post->author;
             $author = DB::table('users')->where('id',$post->author) -> first();
             if($author)
                 $post->author = $author->name;
@@ -22,6 +23,7 @@ class PostsController extends Controller
     }
     public function show($id){
     	$post = Posts::find($id);
+        $author_id = $post->author;
         $author = DB::table('users')->where('id',$post->author) -> first();
         if($author)
             $post->author = $author->name;
@@ -31,7 +33,7 @@ class PostsController extends Controller
             if($author)
                 $comment->author = $author->name;
         }
-	   	return view('posts.show', compact("post"), compact("comments"));
+	   	return view('posts.show', compact("post"), compact("comments"))->with("author_id", $author_id);
     }
     public function create(){
         $posts = Posts::all();
