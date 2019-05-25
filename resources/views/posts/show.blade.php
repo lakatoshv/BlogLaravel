@@ -16,6 +16,28 @@
         <h2 class="post-title text-center">
           {!! $post->title !!}
         </h2>
+        <br/>
+        @guest
+        @else
+        <p class="pull-right">
+          <a type="button"
+            class="btn btn-sm text-white btn-primary"
+            href="{{ url('/posts/edit/'.$post->id) }}">
+              <i class="fa fa-edit"></i>
+              Редагувати
+          </a>
+          <button 
+            type="button"
+            class="btn btn-sm text-white btn-danger"
+            id="{{$post->id}}"s
+            data-toggle="modal"
+            data-target="#delete-post">
+              <i class="fa fa-trash"></i>
+              Видалити
+        </button>
+        </p>
+        @endguest
+        
         <img style="width: 100%; height: 300px;" src="{!! $post->imgurl !!}"/>
         <h3 class="post-subtitle text-center">
           {!! $post->description !!}
@@ -213,6 +235,27 @@
                 @include("layouts.errors")
                 <input name="comment_id" id="delete-id" type="hidden" class="comment_input comment_input_name" required="required">
                 <button type="submit" class="comment_button">Видалити</button>
+              </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="delete-post" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Видалити цей пост?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{{ url('/delete-post') }}" enctype='multipart/form-data'>
+                {{csrf_field()}}
+                @include("layouts.errors")
+                <input name="post_id" id="delete-post-id" type="hidden" class="comment_input comment_input_name" required="required" value="{{ $post->id }}">
+                <button type="submit" class="post_button">Видалити</button>
               </form>
             </div>
         </div>

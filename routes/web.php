@@ -29,6 +29,7 @@ Route::group(["middleware" => ["auth"]], function(){
 	Route::post("update", "PostsController@update");
 	Route::get('posts/{id}/like', "PostsController@like");
 	Route::get('posts/{id}/dislike', "PostsController@dislike");
+	Route::post("/delete-post", "PostsController@delete");
 
 	Route::post("add-comment", "CommentsController@create");
 	Route::post("edit-comment", "CommentsController@edit");

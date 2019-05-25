@@ -92,6 +92,14 @@ class PostsController extends Controller
             return redirect("/");
     }
 
+    public function delete(){
+        $post = Posts::find(request("post_id"));
+        if($post->author == Auth::user()->id){
+            $post->delete();
+            return redirect("/");
+        }
+    }
+
     public function update(){
         $id = html_entity_decode(request("id"));
         //Request $request, $id

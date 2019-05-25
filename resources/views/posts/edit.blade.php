@@ -10,7 +10,7 @@
       <form method="post" action="{{ url('/update') }}" enctype='multipart/form-data'>
         {{csrf_field()}}
         @include("layouts.errors")
-        <input type="text" name="id" id="post-id" class="form-control" value="{{ $post->id }}">
+        <input type="hidden" name="id" id="post-id" class="form-control" value="{{ $post->id }}">
         <div class="form-group">
           <label for="title" tag="" class="optional">Тема посту:</label>
           <input type="text" name="title" id="title" class="form-control" value="{{ $post->title }}">
