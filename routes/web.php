@@ -23,6 +23,7 @@ Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["adm
 	Route::get("/", "DashboardController@dashboard")->name("admin.index");
 });
 Route::group(["middleware" => ["auth"]], function(){
+	Route::get('myPosts', "PostsController@myPosts");
 	Route::get("posts/create", "PostsController@create");
 	Route::get("posts/edit/{id}", "PostsController@edit");
 	Route::post("post", "PostsController@store");

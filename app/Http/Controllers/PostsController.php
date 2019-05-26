@@ -102,6 +102,17 @@ class PostsController extends Controller
         }
     }
 
+    public function myPosts(){
+        $posts = Posts::where('author', Auth::user()->id)->get();
+        foreach ($posts as $post) {
+            $post->author_id = $post->author;
+            $author = DB::table('users')->where('id',$post->author) -> first();
+            if($author)
+                $post->author = $author->name;
+        }
+        return view('posts.myPosts', compact('posts'));
+    }
+
     public function update(){
         $id = html_entity_decode(request("id"));
         //Request $request, $id
