@@ -19,6 +19,11 @@
           <li class="nav-item"><a href="{{ route('login') }}" class="nav-link"><i class="fa fa-sign-in"></i> Ввійти</a></li>
           <li class="nav-item"><a href="{{ route('register') }}" class="nav-link"><i class="fa fa-user"></i> Зареєструватись</a></li>
         @else
+          <li class="nav-item">
+            <a href="{{url('myPosts')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+              Мої пости
+            </a>
+          </li>
           <li class="nav-item dropdow">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
               {{ Auth::user()->name }} <span class="caret"></span>
