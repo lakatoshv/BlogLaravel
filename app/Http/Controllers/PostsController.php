@@ -102,8 +102,17 @@ class PostsController extends Controller
         }
     }
 
-    public function myPosts(){
-        $posts = Posts::where('author', Auth::user()->id)->get();
+    public function myPostsWithSearch($search = null, $sortBy = null, $orderBy = null){
+        $posts = Posts::where('author', Auth::user()->id);
+        if($search != null){
+            $posts = $posts->where('title', 'like', '%'.$search.'%');
+        }
+        if($sortBy != null && $orderBy != null){
+            $posts = $posts->orderBy($sortBy);
+        }
+
+        $posts = $posts->get();
+
         foreach ($posts as $post) {
             $post->author_id = $post->author;
             $author = DB::table('users')->where('id',$post->author) -> first();

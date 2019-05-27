@@ -3,11 +3,46 @@
   <title>LaravelBlog - Головна</title>
 @endsection
 @section("content")
+
+<style>
+    .left li {
+        float: left;
+        vertical-align: middle;
+        margin-right: 15px;
+    }
+    .search {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+    }
+    .input-group-text {
+        border: none;
+    }
+</style>
+
 <!-- Main Content -->
 <div class="container">
   <div class="row">
     <div class="col-lg-10 col-md-10 mx-auto">
-      @if ( Auth::check() && Auth::user()->role == "admin" )
+      <div class="input-group md-form form-sm form-2 pl-0 col-5">
+        <input class="form-control search" type="text" placeholder="Search" aria-label="Search" name="search" id="search">
+        <button class="input-group-append" type="submit" id="search-btn">
+          <span class="input-group-text"><i class="fa fa-search text-grey" aria-hidden="true"></i></span>
+        </button>
+      </div>
+      <ul class="list-inline">
+          <li>
+            <a href="{{ url('/myPosts?display=list') }}" style="float: left; padding-right: 15px;">
+              <span class="fa fa-list"></span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/myPosts?display=grid') }}">
+              <span class="fa fa-th"></span>
+            </a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+        @if ( Auth::check() && Auth::user()->role == "admin" )
           <div class="post-preview">
             <a href="{{ url('/posts/create') }}">Написати пост</a>
           </div>
@@ -90,6 +125,29 @@
         $("#delete-post-id").val(id);
         document.getElementById("delete-post-title").textContent=postTitle;
     }
+
+    function cheked(select) {
+        // берём значение из select и что-то с ним делаем
+        return select.val();
+    };
+
+    /* сортування */
+    $("#sorting").click(function () {
+      debugger
+        var value_sort = cheked($("#sort-by"));
+        var type_sort = cheked($("#order-by"));
+        document.cookie = "sort=" + value_sort;
+        document.cookie = "type_sort=" + type_sort;
+        location.href = '{{url("myPosts")}}' + '/sortBy/' + value_sort  + '/orderBy/' + type_sort;
+    });
+
+    $("#search-btn").click(function () {
+        var search = $("#search").val();
+        if (search !== "") {
+          location.href = '{{url("myPosts")}}' + '/search/' + search;
+        }
+        
+    });
 </script>
 
 <div id="delete-post" class="modal fade" role="dialog">
