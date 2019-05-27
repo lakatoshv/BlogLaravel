@@ -42,6 +42,30 @@
           </li>
         </ul>
         <div class="clearfix"></div>
+        <ul class="list-inline left">
+          <li>Сортувати</li>
+          <li>за:</li>
+          <li>
+            <select id="sort-by">
+              <option value="created_at">Датою</option>
+              <option value="title">Назвою</option>
+              <option value="author">Автором</option>
+              <option value="likes">Лайками</option>
+              <option value="dislikes">Дизлайками</option>
+            </select>
+          </li>
+          <li>тип сортування:</li>
+          <li>
+            <select id="order-by">
+              <option value="asc">За зростанням</option>
+              <option value="desc">За спаданням</option>
+            </select>
+          </li>
+          <li>
+            <a id="sorting" class="btn btn-default button-background">Сортувати</a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
         @if ( Auth::check() && Auth::user()->role == "admin" )
           <div class="post-preview">
             <a href="{{ url('/posts/create') }}">Написати пост</a>

@@ -121,6 +121,22 @@ class PostsController extends Controller
         }
         return view('posts.myPosts', compact('posts'));
     }
+    public function myPosts($sortBy = null, $orderBy = null){
+        $posts = Posts::where('author', Auth::user()->id);
+        if($sortBy != null && $orderBy != null){
+            $posts = $posts->orderBy($sortBy, $orderBy);
+        }
+
+        $posts = $posts->get();
+
+        foreach ($posts as $post) {
+            $post->author_id = $post->author;
+            $author = DB::table('users')->where('id',$post->author) -> first();
+            if($author)
+                $post->author = $author->name;
+        }
+        return view('posts.myPosts', compact('posts'));
+    }
 
     public function update(){
         $id = html_entity_decode(request("id"));
