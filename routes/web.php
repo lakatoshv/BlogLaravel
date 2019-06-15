@@ -24,6 +24,7 @@ Route::group(["prefix" => "admin", "namespace" => "Admin", "middleware" => ["adm
 });
 Route::group(["middleware" => ["auth"]], function(){
 	Route::get('myPosts', "PostsController@myPosts");
+	Route::get('myPosts/display/{display}', "PostsController@myPosts");
 	Route::get('myPosts/search/{search?}', "PostsController@myPostsWithSearch");
 	Route::get('myPosts/sortBy/{sortBy?}/orderBy/{orderBy?}', "PostsController@myPosts");
 	Route::get('myPosts/search/{search?}/sortBy/{sortBy?}/orderBy/{orderBy?}', "PostsController@myPosts");
