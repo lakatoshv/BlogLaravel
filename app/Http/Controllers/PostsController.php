@@ -121,7 +121,7 @@ class PostsController extends Controller
         }
         return view('posts.myPosts', compact('posts'));
     }
-    public function myPosts($sortBy = null, $orderBy = null){
+    public function myPosts($display = "list", $sortBy = null, $orderBy = null){
         $posts = Posts::where('author', Auth::user()->id);
         if($sortBy != null && $orderBy != null){
             $posts = $posts->orderBy($sortBy, $orderBy);
@@ -135,7 +135,7 @@ class PostsController extends Controller
             if($author)
                 $post->author = $author->name;
         }
-        return view('posts.myPosts', compact('posts'));
+        return view('posts.myPosts', compact('posts'))->with("display", $display);
     }
 
     public function update(){

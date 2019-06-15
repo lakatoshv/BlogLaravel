@@ -18,7 +18,6 @@
         border: none;
     }
 </style>
-
 <!-- Main Content -->
 <div class="container">
   <div class="row">
@@ -31,12 +30,12 @@
       </div>
       <ul class="list-inline">
           <li>
-            <a href="{{ url('/myPosts?display=list') }}" style="float: left; padding-right: 15px;">
+            <a href="{{ url('/myPosts/display/list') }}" style="float: left; padding-right: 15px;">
               <span class="fa fa-list"></span>
             </a>
           </li>
           <li>
-            <a href="{{ url('/myPosts?display=grid') }}">
+            <a href="{{ url('/myPosts/display/grid') }}">
               <span class="fa fa-th"></span>
             </a>
           </li>
@@ -71,73 +70,129 @@
             <a href="{{ url('/posts/create') }}">Написати пост</a>
           </div>
         @endif
-      @foreach($posts as $post)
-        <div class="post-preview{{$post->id}}">
-          <a href="{{ url('/posts/'.$post->id) }}">
-            <h2 class="post-title">
-              {{html_entity_decode($post->title)}}
-            </h2>
-            @guest
-            @elseif($post->author_id == Auth::user()->id)
-            <p class="pull-right">
-              <a type="button"
-                class="btn btn-sm text-white btn-primary"
-                href="{{ url('/posts/edit/'.$post->id) }}">
-                  <i class="fa fa-edit"></i>
-                  Редагувати
+        @if($display == "list")
+          @foreach($posts as $post)
+            <div class="post-preview{{$post->id}}">
+              <a href="{{ url('/posts/'.$post->id) }}">
+                <h2 class="post-title">
+                  {{html_entity_decode($post->title)}}
+                </h2>
+                @guest
+                @elseif($post->author_id == Auth::user()->id)
+                <p class="pull-right">
+                  <a type="button"
+                    class="btn btn-sm text-white btn-primary"
+                    href="{{ url('/posts/edit/'.$post->id) }}">
+                      <i class="fa fa-edit"></i>
+                      Редагувати
+                  </a>
+                  <button 
+                    type="button"
+                    class="btn btn-sm text-white btn-danger"
+                    id="{{$post->id}}"
+                    onclick="setDeletePostValues(this.id)"
+                    data-toggle="modal"
+                    data-target="#delete-post">
+                      <i class="fa fa-trash"></i>
+                      Видалити
+                </button>
+                </p>
+                @endguest
+                <img style="width: 100%; height: 300px;" src="{!! $post->imgurl !!}"/>
+                <h3 class="post-subtitle">
+                  {!! $post->description !!}
+                </h3>
               </a>
-              <button 
-                type="button"
-                class="btn btn-sm text-white btn-danger"
-                id="{{$post->id}}"
-                onclick="setDeletePostValues(this.id)"
-                data-toggle="modal"
-                data-target="#delete-post">
-                  <i class="fa fa-trash"></i>
-                  Видалити
-            </button>
-            </p>
-            @endguest
-            <img style="width: 100%; height: 300px;" src="{!! $post->imgurl !!}"/>
-            <h3 class="post-subtitle">
-              {!! $post->description !!}
-            </h3>
-          </a>
-          <p class="post-meta">
-            <span><i class="fa fa-fw fa-eye"></i> {{$post->seen}}</span>  
-            <span><i class="fa fa-fw fa-thumbs-up"></i> {{$post->likes}}</span>
-            <span><i class="fa fa-fw fa-thumbs-down"></i> {{$post->dislikes}}</span>
-            @php 
-            {{$comments = DB::table("comments")->where("post_id", $post->id)->get();}}
-            @endphp 
-            <span><i class="fa fa-fw fa-comment"></i>{{count($comments)}}</span>
-          </p>
-          <p class="post-meta">Теги:
-            @php
-            {{$tags = explode(", ", $post->tags);}}
-            @endphp
-            @foreach($tags as $tag)
-              <a href="#">{{$tag}}</a>,  
-            @endforeach
-          </p>
-          <p class="post-meta">
-            Написав: <b><a href="">{{$post->author}}</a><i> 
-            @php
-            {{
-              $date = date_create($post->created_at);
-              $date = date_format($date, 'd.m.Y');
-            }}
-            @endphp
-            {{$date}}</i></b>
-          </p>
-        </div>
-        <hr>
-      @endforeach
-      
-      <!-- Pager -->
-      <div class="clearfix"> 
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-      </div>
+              <p class="post-meta">
+                <span><i class="fa fa-fw fa-eye"></i> {{$post->seen}}</span>  
+                <span><i class="fa fa-fw fa-thumbs-up"></i> {{$post->likes}}</span>
+                <span><i class="fa fa-fw fa-thumbs-down"></i> {{$post->dislikes}}</span>
+                @php 
+                {{$comments = DB::table("comments")->where("post_id", $post->id)->get();}}
+                @endphp 
+                <span><i class="fa fa-fw fa-comment"></i>{{count($comments)}}</span>
+              </p>
+              <p class="post-meta">Теги:
+                @php
+                {{$tags = explode(", ", $post->tags);}}
+                @endphp
+                @foreach($tags as $tag)
+                  <a href="#">{{$tag}}</a>,  
+                @endforeach
+              </p>
+              <p class="post-meta">
+                Написав: <b><a href="">{{$post->author}}</a><i> 
+                @php
+                {{
+                  $date = date_create($post->created_at);
+                  $date = date_format($date, 'd.m.Y');
+                }}
+                @endphp
+                {{$date}}</i></b>
+              </p>
+            </div>
+            <hr>
+          @endforeach
+          
+          <!-- Pager -->
+          <div class="clearfix"> 
+            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+          </div>
+        @endif
+        @if($display == "grid")
+          <table class="table table-hover table-condensed">
+            <thead>
+              <tr>
+                <th style="width: 35%"><b>Назва:</b></th>
+                <th style="width: 10%"><b>Кількість переглядів:</b></th>
+                <th style="width: 10%"><b>Кількість лайків:</b></th>
+                <th style="width: 10%"><b>Кількість дизлайків:</b></th>
+                <th style="width: 15%"><b>Дата створення:</b></th>
+                <th style="width: 20%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($posts as $post)
+                <tr>
+                  <td>
+                    <a href="{{ url('/posts/'.$post->id) }}">{{$post->title}}</a>
+                  </td>
+                  <td>{{$post->seen}}</td>
+                  <td>{{$post->likes}}</td>
+                  <td>{{$post->dislikes}}</td>
+                  @php
+                  {{
+                    $date = date_create($post->created_at);
+                    $date = date_format($date, 'd.m.Y');
+                  }}
+                  @endphp
+                  <td>{{$date}}</td>
+                  @guest
+                  @elseif($post->author_id == Auth::user()->id)
+                    <td class="actions" data-th="">
+                      <p class="pull-right">
+                        <a type="button"
+                          class="btn btn-sm text-white btn-primary"
+                          href="{{ url('/posts/edit/'.$post->id) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <button 
+                          type="button"
+                          class="btn btn-sm text-white btn-danger"
+                          id="{{$post->id}}"
+                          onclick="setDeletePostValues(this.id)"
+                          data-toggle="modal"
+                          data-target="#delete-post">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                      </p>
+                    </td>
+                  @endguest
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        @endif
     </div>
   </div>
 </div>
