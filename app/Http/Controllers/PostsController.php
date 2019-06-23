@@ -103,15 +103,13 @@ class PostsController extends Controller
     }
 
     public function myPostsWithSearch($search = null, $sortBy = null, $orderBy = null){
-        $posts = Posts::where('author', Auth::user()->id);
+        $posts = Posts::where('author', Auth::user()->id)::paginate(15);
         if($search != null){
             $posts = $posts->where('title', 'like', '%'.$search.'%');
         }
         if($sortBy != null && $orderBy != null){
             $posts = $posts->orderBy($sortBy);
         }
-
-        $posts = $posts->get();
 
         foreach ($posts as $post) {
             $post->author_id = $post->author;
@@ -123,11 +121,13 @@ class PostsController extends Controller
     }
     public function myPosts($display = "list", $sortBy = null, $orderBy = null){
         $posts = Posts::where('author', Auth::user()->id);
+
         if($sortBy != null && $orderBy != null){
             $posts = $posts->orderBy($sortBy, $orderBy);
         }
 
-        $posts = $posts->get();
+        if($display == "list")
+            $posts = $posts->paginate(15);
 
         foreach ($posts as $post) {
             $post->author_id = $post->author;
