@@ -177,6 +177,8 @@
               </li>
               <hr>
               @endforeach
+
+            {{ $comments->links('helpers.pagination') }}
             </ul>
           </div>
         </div>
