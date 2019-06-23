@@ -27,7 +27,7 @@ class PostsController extends Controller
         $author = DB::table('users')->where('id',$post->author) -> first();
         if($author)
             $post->author = $author->name;
-	    $comments = Comments::where("post_id", $id)->get();
+	    $comments = Comments::where("post_id", $id)->paginate(15);;
         foreach ($comments as $comment) {
             $author = DB::table('users')->where('id',$comment->author) -> first();
             if($author)
