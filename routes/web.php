@@ -28,6 +28,7 @@ Route::group(["middleware" => ["auth"]], function(){
 	Route::get('myPosts/search/{search?}', "PostsController@myPostsWithSearch");
 	Route::get('myPosts/sortBy/{sortBy?}/orderBy/{orderBy?}', "PostsController@myPosts");
 	Route::get('myPosts/search/{search?}/sortBy/{sortBy?}/orderBy/{orderBy?}', "PostsController@myPosts");
+
 	Route::get("posts/create", "PostsController@create");
 	Route::get("posts/edit/{id}", "PostsController@edit");
 	Route::post("post", "PostsController@store");
@@ -39,6 +40,8 @@ Route::group(["middleware" => ["auth"]], function(){
 	Route::post("add-comment", "CommentsController@create");
 	Route::post("edit-comment", "CommentsController@edit");
 	Route::post("/delete-comment", "CommentsController@delete");
+
+	Route::get('profile', "ProfileController@index");
 });
 Route::get('/', "PostsController@index");
 Route::get('/posts', "PostsController@index");
