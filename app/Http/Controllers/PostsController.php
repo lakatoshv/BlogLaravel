@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
 	
     public function index(){
-    	$posts = Posts::paginate(15);;
+    	$posts = Posts::paginate(15);
         foreach ($posts as $post) {
             $post->author_id = $post->author;
             $author = DB::table('users')->where('id',$post->author) -> first();

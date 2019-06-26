@@ -115,17 +115,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        	@foreach($posts as $post)
                                                 <tr>
                                                     <td>
-                                                        <a href="@pathURL">@post.Title</a>
+                                                        <a href="{{ url('/posts/'.$post->id) }}">{{$post->title}}</a>
                                                     </td>
-                                                    <td>@post.Seen</td>
-                                                    <td>@post.Likes</td>
-                                                    <td>@post.Dislikes</td>
-                                                    <td>@post.CreatedAt</td>
+                                                    <td>{{$post->seen}}</td>
+                                                    <td>@{{$post.->likes}}</td>
+                                                    <td>{{$post->dislikes}}</td>
+                                                    <td>
+	                                                    @php
+											            {{
+											              $date = date_create($post->created_at);
+											              $date = date_format($date, 'd.m.Y');
+											            }}
+											            @endphp
+											            {{$date}}
+											        </td>
                                                     @if(Auth::user()->id == $profile->user_id)
-          )                                              <td class="actions" data-th="">
-                                                            <a class="btn btn-primary" href="@edit"><i class="fa fa-edit"></i></a>
+       	                                              	<td class="actions" data-th="">
+                                                            <a class="btn btn-primary" href="{{ url('/posts/edit/'.$post->id) }}"><i class="fa fa-edit"></i></a>
                                                             <button type="button"
                                                                     class="btn btn-sm text-white btn-danger"
                                                                     id="@(post.Id)"
@@ -137,7 +146,7 @@
                                                         </td>
                                                     @endif
                                                 </tr>
-                                            }
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
