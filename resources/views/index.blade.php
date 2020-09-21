@@ -107,7 +107,7 @@
               <form method="post" action="{{ url('/delete-post') }}" enctype='multipart/form-data'>
                 {{csrf_field()}}
                 @include("layouts.errors")
-                <input name="post_id" id="delete-post-id" type="hidden" class="comment_input comment_input_name" required="required" value="{{ $post->id }}">
+                <input name="post_id" id="delete-post-id" type="hidden" class="comment_input comment_input_name" required="required" value="">
                 <button type="submit" class="post_button">Видалити</button>
               </form>
             </div>
