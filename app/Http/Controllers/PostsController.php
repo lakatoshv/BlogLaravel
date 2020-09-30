@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 use App\Models\Posts;
 use App\Models\Comments;
-use Illuminate\Support\Facades\Auth;
 
+/**
+ * Posts controller.
+ * 
+ * Contains CRUDa operations to work with Posts table.
+ */
 class PostsController extends Controller
 {
-	
-    public function index(){
+	/**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index(): Response {
     	$posts = Posts::paginate(15);
         foreach ($posts as $post) {
             $post->author_id = $post->author;
@@ -21,6 +31,13 @@ class PostsController extends Controller
         }
     	return view('index', compact('posts'));
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id){
     	$post = Posts::find($id);
         $author_id = $post->author;
@@ -35,11 +52,24 @@ class PostsController extends Controller
         }
 	   	return view('posts.show', compact("post"), compact("comments"))->with("author_id", $author_id);
     }
-    public function create(){
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create(): Response {
         $posts = Posts::all();
         return view('posts.create');
     }
-    public function store(){
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @ param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function store(): Response {
         //dd(request()->all());
         $this->validate(request(), [
             "title" => "required|min:2",
