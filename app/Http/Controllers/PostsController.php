@@ -38,7 +38,7 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return View
      */
     public function show($id): View{
@@ -124,7 +124,7 @@ class PostsController extends Controller
     /**
      * Add like to post.
      *
-     * @param int
+     * @param int $id
      * 
      * @return Response
      */
@@ -139,7 +139,7 @@ class PostsController extends Controller
     /**
      * Add dislike to post.
      *
-     * @param int
+     * @param int $id
      * 
      * @return Response
      */
@@ -152,11 +152,11 @@ class PostsController extends Controller
     }
 
     /**
-     * Edit post.
+     * DIsplay post to edit.
      *
-     * @param int
+     * @param int $id
      * 
-     * @return Response
+     * @return View
      */
     public function edit(int $id): Response {
         $post = Posts::find($id);
@@ -171,8 +171,6 @@ class PostsController extends Controller
 
     /**
      * Delete post.
-     *
-     * @param int
      * 
      * @return Response
      */
@@ -187,13 +185,15 @@ class PostsController extends Controller
     }
 
     /**
-     * DIsplay current user posts with filters.
+     * DIsplay current user posts with filters by search.
      *
-     * @param int
+     * @param string $search
+     * @param string $sortBy
+     * @param string $orderBy
      * 
      * @return View
      */
-    public function myPostsWithSearch($search = null, $sortBy = null, $orderBy = null): View {
+    public function myPostsWithSearch(string $search = null, string $sortBy = null, string $orderBy = null): View {
         $posts = Posts::where('author', Auth::user()->id)::paginate(15);
 
         if($search != null) {
@@ -216,34 +216,43 @@ class PostsController extends Controller
     }
 
     /**
-     * Add like to post.
+     * DIsplay current user posts with filters and display type.
      *
-     * @param int
+     * @param string $display
+     * @param string $sortBy
+     * @param string $orderBy
      * 
      * @return View
      */
-    public function myPosts($display = "list", $sortBy = null, $orderBy = null): View{
+    public function myPosts($display = "list", $sortBy = null, $orderBy = null): View {
         $posts = Posts::where('author', Auth::user()->id);
 
-        if($sortBy != null && $orderBy != null){
+        if($sortBy != null && $orderBy != null) {
             $posts = $posts->orderBy($sortBy, $orderBy);
         }
 
-        if($display == "list")
+        if($display == "list") {
             $posts = $posts->paginate(15);
+        }
 
         foreach ($posts as $post) {
             $post->author_id = $post->author;
             $author = DB::table('users')->where('id',$post->author) -> first();
 
-            if($author)
+            if($author) {
                 $post->author = $author->name;
+            }
         }
 
         return view('posts.myPosts', compact('posts'))->with("display", $display);
     }
 
-    public function update(): Response{
+    /**
+     * Update post.
+     * 
+     * @return Response
+     */
+    public function update(): Response {
         $id = html_entity_decode(request("id"));
         //Request $request, $id
         $this->validate(request(), [
@@ -256,7 +265,7 @@ class PostsController extends Controller
         ]);
         $post = Posts::find($id);
 
-        if($post->author == Auth::user()->id){
+        if($post->author == Auth::user()->id) {
             $post->title = html_entity_decode(request("title"));
             $post->description = html_entity_decode(request("description"));
             $post->content = html_entity_decode(request("content"));
@@ -265,9 +274,11 @@ class PostsController extends Controller
             $post->alias = html_entity_decode(request("alias"));
             $post->created_at = date("Y-m-d H:i:s");
             $post->save();
+
             return redirect("/posts/".request("post_id"));
         }
-        else
+        else {
             return redirect("/");
+        }
     }
 }
