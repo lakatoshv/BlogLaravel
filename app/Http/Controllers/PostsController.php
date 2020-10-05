@@ -36,12 +36,75 @@ class PostsController extends Controller
     }
 
     /**
+     * DIsplay current user posts with filters by search.
+     *
+     * @param string $search
+     * @param string $sortBy
+     * @param string $orderBy
+     * 
+     * @return View
+     */
+    public function myPostsWithSearch(string $search = null, string $sortBy = null, string $orderBy = null): View {
+        $posts = Posts::where('author', Auth::user()->id)::paginate(15);
+
+        if($search != null) {
+            $posts = $posts->where('title', 'like', '%'.$search.'%');
+        }
+
+        if($sortBy != null && $orderBy != null) {
+            $posts = $posts->orderBy($sortBy);
+        }
+
+        foreach ($posts as $post) {
+            $post->author_id = $post->author;
+            $author = DB::table('users')->where('id',$post->author) -> first();
+            if($author) {
+                $post->author = $author->name;
+            }
+        }
+
+        return view('posts.myPosts', compact('posts'));
+    }
+
+    /**
+     * DIsplay current user posts with filters and display type.
+     *
+     * @param string $display
+     * @param string $sortBy
+     * @param string $orderBy
+     * 
+     * @return View
+     */
+    public function myPosts(string $display = "list", string $sortBy = null, string $orderBy = null): View {
+        $posts = Posts::where('author', Auth::user()->id);
+
+        if($sortBy != null && $orderBy != null) {
+            $posts = $posts->orderBy($sortBy, $orderBy);
+        }
+
+        if($display == "list") {
+            $posts = $posts->paginate(15);
+        }
+
+        foreach ($posts as $post) {
+            $post->author_id = $post->author;
+            $author = DB::table('users')->where('id',$post->author) -> first();
+
+            if($author) {
+                $post->author = $author->name;
+            }
+        }
+
+        return view('posts.myPosts', compact('posts'))->with("display", $display);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int $id
      * @return View
      */
-    public function show($id): View{
+    public function show(int $id): View{
     	$post = Posts::find($id);
         $author_id = $post->author;
         $author = DB::table('users')->where('id',$post->author) -> first();
@@ -75,12 +138,30 @@ class PostsController extends Controller
     }
 
     /**
+     * DIsplay post to edit.
+     *
+     * @param int $id
+     * 
+     * @return View
+     */
+    public function edit(int $id): VI=iew {
+        $post = Posts::find($id);
+
+        if($post->author == Auth::user()->id) {
+            return view('posts.edit', compact("post"));
+        }
+        else {
+            return redirect("/");
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @ param  \Illuminate\Http\Request  $request
      * @return View
      */
-    public function store(): View {
+    public function store(): Request {
         //dd(request()->all());
         $this->validate(request(), [
             "title" => "required|min:2",
@@ -122,132 +203,6 @@ class PostsController extends Controller
     }
 
     /**
-     * Add like to post.
-     *
-     * @param int $id
-     * 
-     * @return Response
-     */
-    public function like(int $id): Response {
-        $post = Posts::find($id);
-        $post->likes += 1;
-        $post->save();
-
-        return redirect("/posts/".$post->id);
-    }
-
-    /**
-     * Add dislike to post.
-     *
-     * @param int $id
-     * 
-     * @return Response
-     */
-    public function dislike(int $id): Response {
-        $post = Posts::find($id);
-        $post->dislikes += 1;
-        $post->save();
-
-        return redirect("/posts/".$post->id);
-    }
-
-    /**
-     * DIsplay post to edit.
-     *
-     * @param int $id
-     * 
-     * @return View
-     */
-    public function edit(int $id): Response {
-        $post = Posts::find($id);
-
-        if($post->author == Auth::user()->id) {
-            return view('posts.edit', compact("post"));
-        }
-        else {
-            return redirect("/");
-        }
-    }
-
-    /**
-     * Delete post.
-     * 
-     * @return Response
-     */
-    public function delete(): Response {
-        $post = Posts::find(request("post_id"));
-
-        if($post->author == Auth::user()->id){
-            $post->delete();
-
-            return redirect("/");
-        }
-    }
-
-    /**
-     * DIsplay current user posts with filters by search.
-     *
-     * @param string $search
-     * @param string $sortBy
-     * @param string $orderBy
-     * 
-     * @return View
-     */
-    public function myPostsWithSearch(string $search = null, string $sortBy = null, string $orderBy = null): View {
-        $posts = Posts::where('author', Auth::user()->id)::paginate(15);
-
-        if($search != null) {
-            $posts = $posts->where('title', 'like', '%'.$search.'%');
-        }
-
-        if($sortBy != null && $orderBy != null) {
-            $posts = $posts->orderBy($sortBy);
-        }
-
-        foreach ($posts as $post) {
-            $post->author_id = $post->author;
-            $author = DB::table('users')->where('id',$post->author) -> first();
-            if($author) {
-                $post->author = $author->name;
-            }
-        }
-
-        return view('posts.myPosts', compact('posts'));
-    }
-
-    /**
-     * DIsplay current user posts with filters and display type.
-     *
-     * @param string $display
-     * @param string $sortBy
-     * @param string $orderBy
-     * 
-     * @return View
-     */
-    public function myPosts($display = "list", $sortBy = null, $orderBy = null): View {
-        $posts = Posts::where('author', Auth::user()->id);
-
-        if($sortBy != null && $orderBy != null) {
-            $posts = $posts->orderBy($sortBy, $orderBy);
-        }
-
-        if($display == "list") {
-            $posts = $posts->paginate(15);
-        }
-
-        foreach ($posts as $post) {
-            $post->author_id = $post->author;
-            $author = DB::table('users')->where('id',$post->author) -> first();
-
-            if($author) {
-                $post->author = $author->name;
-            }
-        }
-
-        return view('posts.myPosts', compact('posts'))->with("display", $display);
-    }
-
-    /**
      * Update post.
      * 
      * @return Response
@@ -278,6 +233,51 @@ class PostsController extends Controller
             return redirect("/posts/".request("post_id"));
         }
         else {
+            return redirect("/");
+        }
+    }
+
+    /**
+     * Add like to post.
+     *
+     * @param int $id
+     * 
+     * @return Response
+     */
+    public function like(int $id): Response {
+        $post = Posts::find($id);
+        $post->likes += 1;
+        $post->save();
+
+        return redirect("/posts/".$post->id);
+    }
+
+    /**
+     * Add dislike to post.
+     *
+     * @param int $id
+     * 
+     * @return Response
+     */
+    public function dislike(int $id): Response {
+        $post = Posts::find($id);
+        $post->dislikes += 1;
+        $post->save();
+
+        return redirect("/posts/".$post->id);
+    }
+
+    /**
+     * Delete post.
+     * 
+     * @return Response
+     */
+    public function delete(): Response {
+        $post = Posts::find(request("post_id"));
+
+        if($post->author == Auth::user()->id){
+            $post->delete();
+
             return redirect("/");
         }
     }
