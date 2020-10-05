@@ -144,7 +144,7 @@ class PostsController extends Controller
      * 
      * @return View
      */
-    public function edit(int $id): VI=iew {
+    public function edit(int $id): View {
         $post = Posts::find($id);
 
         if($post->author == Auth::user()->id) {
