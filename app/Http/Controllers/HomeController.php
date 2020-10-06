@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Home controller.
+ * 
+ * Display default pages.
+ */
 class HomeController extends Controller
 {
     /**
