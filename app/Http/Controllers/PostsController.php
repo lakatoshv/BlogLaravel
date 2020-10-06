@@ -159,7 +159,7 @@ class PostsController extends Controller
      * Store a newly created resource in storage.
      *
      * @ param  \Illuminate\Http\Request  $request
-     * @return View
+     * @return Request
      */
     public function store(): Request {
         //dd(request()->all());
