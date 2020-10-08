@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
+/**
+ * Encrypts cookies.
+ */
 class EncryptCookies extends Middleware
 {
     /**
@@ -11,7 +14,5 @@ class EncryptCookies extends Middleware
      *
      * @var array
      */
-    protected $except = [
-        //
-    ];
+    protected $except = [];
 }
