@@ -20,7 +20,7 @@ class Admin
      * @param  Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next): mixed
+    public function handle(Request $request, Closure $next)
     {
         if ( Auth::check() && Auth::user()->role == "admin" )
         {
