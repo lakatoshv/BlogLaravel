@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Comments table migration.
+ */
 class Comments extends Migration
 {
     /**
@@ -11,7 +14,7 @@ class Comments extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
@@ -27,7 +30,7 @@ class Comments extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('comments');
     }

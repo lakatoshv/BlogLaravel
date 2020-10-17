@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Create profiles table migration.
+ */
 class CreateProfilesTable extends Migration
 {
     /**
@@ -14,7 +17,7 @@ class CreateProfilesTable extends Migration
 
     public $timestamps = false;
 
-    public function up()
+    public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
@@ -33,7 +36,7 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('profiles');
     }
