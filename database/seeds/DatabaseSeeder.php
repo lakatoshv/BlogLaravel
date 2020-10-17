@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+ * Database seeder.
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -9,7 +12,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeed::class);
