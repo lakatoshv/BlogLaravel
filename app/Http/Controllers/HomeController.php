@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
+/**
+ * Home controller.
+ * 
+ * Display default pages.
+ */
 class HomeController extends Controller
 {
     /**
@@ -19,9 +25,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('home');
     }

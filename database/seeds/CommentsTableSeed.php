@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+ * Comments table seeder.
+ */
 class CommentsTableSeed extends Seeder
 {
     /**
@@ -9,7 +12,7 @@ class CommentsTableSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table("comments")->insert(
         	array(

@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Posts as Posts;
 use Illuminate\Database\Seeder;
 
+/**
+ * Database seeder.
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -9,9 +13,12 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
+        $this->call(UsersTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeed::class);
+        factory(Posts::class, 100)->create();
     }
 }

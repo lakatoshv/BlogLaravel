@@ -16,7 +16,7 @@
 class Swift_Plugins_MessageLogger implements Swift_Events_SendListener
 {
     /**
-     * @var Swift_Mime_Message[]
+     * @var Swift_Mime_SimpleMessage[]
      */
     private $messages;
 
@@ -28,7 +28,7 @@ class Swift_Plugins_MessageLogger implements Swift_Events_SendListener
     /**
      * Get the message list.
      *
-     * @return Swift_Mime_Message[]
+     * @return Swift_Mime_SimpleMessage[]
      */
     public function getMessages()
     {
@@ -42,7 +42,7 @@ class Swift_Plugins_MessageLogger implements Swift_Events_SendListener
      */
     public function countMessages()
     {
-        return count($this->messages);
+        return \count($this->messages);
     }
 
     /**

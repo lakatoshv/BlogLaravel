@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Posts entity.
+ */
 class Posts extends Model
 {
-    //поля, які можна редагувати
+    //Editable fields
     protected $fillable = ["title", "description", "content", "author", "seen", "likes", "dislikes", "tags", "imgurl", "access", "created_at", "updated_at", "alias"];
-    //захищені поля(не можна редагувати)
+    //non-editable fields
     //protected $guarded =[...]
 }
